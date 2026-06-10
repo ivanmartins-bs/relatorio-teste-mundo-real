@@ -988,12 +988,12 @@
         <div class="evidence-section">
           <h4>📸 Evidências Visuais</h4>
           <div class="evidence-gallery" id="gallery-auth">
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc05-minha-conta.png')">
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc05-minha-conta.jpeg')">
               <img src="evidencias/tc05-minha-conta.jpeg" alt="TC-05 — Tela Minha Conta"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-05 — Minha Conta (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">TC-05 — Tela Minha Conta ✅</div>
             </div>
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc01-tela-login.png')">
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc01-tela-login.jpeg')">
               <img src="evidencias/tc01-tela-login.jpeg" alt="TC-01/TC-06 — Tela de Login"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-01/06 — Login (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">TC-01/TC-06 — Tela de Login ✅</div>
@@ -1054,21 +1054,21 @@
               <td>Cadastro com dados válidos completos</td>
               <td>Nome, e-mail, telefone e senha preenchidos</td>
               <td>Usuário logado automaticamente após cadastro</td>
-              <td><span class="status fail dot">Reprovado</span></td>
+              <td><span class="status pass dot">Aprovado</span></td>
             </tr>
             <tr>
               <td>TC-08</td>
               <td>Cadastro com e-mail já existente</td>
               <td>E-mail já cadastrado no banco</td>
               <td>Mensagem de erro informando duplicidade</td>
-              <td><span class="status pending dot">Pendente</span></td>
+              <td><span class="status pass dot">Aprovado</span></td>
             </tr>
             <tr>
               <td>TC-09</td>
               <td>Cadastro com campos obrigatórios vazios</td>
               <td>Formulário vazio</td>
               <td>Validações exibidas para cada campo obrigatório</td>
-              <td><span class="status pending dot">Pendente</span></td>
+              <td><span class="status pass dot">Aprovado</span></td>
             </tr>
             <tr>
               <td>TC-10</td>
@@ -1083,28 +1083,49 @@
         <div class="evidence-section">
           <h4>📸 Evidências Visuais</h4>
           <div class="evidence-gallery" id="gallery-signup">
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc01-tela-login.png')">
-              <img src="evidencias/tc01-tela-login.png" alt="TC-06 — Tela de Login (Acesso ao Cadastro)"
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc01-tela-login.jpeg')">
+              <img src="evidencias/tc01-tela-login.jpeg" alt="TC-06 — Tela de Login (Acesso ao Cadastro)"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-06 — Acesso ao Cadastro via Login (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">TC-06 — Acesso ao Cadastro via Login ✅</div>
             </div>
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc06-tela-cadastro.png')">
-              <img src="evidencias/tc06-tela-cadastro.png" alt="TC-06/TC-07 — Tela de Cadastro"
-                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-06/TC-07 — Cadastro (imagem na pasta evidencias/)';" />
-              <div class="evidence-caption">TC-06/TC-07 — Tela de Cadastro ⚠️</div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/cad_mr.jpeg')">
+              <img src="evidencias/cad_mr.jpeg" alt="TC-06/TC-07 — Tela de Cadastro"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-06/TC-07 — Tela de Cadastro (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">TC-06/TC-07 — Tela de Cadastro ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/cad_ok_mr.png')">
+              <img src="evidencias/cad_ok_mr.png" alt="TC-07 — Cadastro com Sucesso"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-07 — Cadastro com Sucesso (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">TC-07 — Cadastro com Sucesso ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/cad_erro_email.png')">
+              <img src="evidencias/cad_erro_email.jpeg" alt="TC-08 — Erro: E-mail já cadastrado"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-08 — E-mail já cadastrado (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">TC-08 — E-mail já cadastrado ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/cad_erro_campos.png')">
+              <img src="evidencias/cad_erro_campos.jpeg" alt="TC-09 — Validação de campos obrigatórios"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-09 — Validação de campos obrigatórios (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">TC-09 — Validação de campos ✅</div>
             </div>
           </div>
         </div>
 
         <div class="obs-box">
           <strong>Observações:</strong>
-          TC-06 ✅ — O link vermelho "CLIQUE AQUI PARA SE CADASTRAR" na tela de login direciona corretamente para a tela
-          de cadastro.<br>
-          TC-07 ❌ — Embora o cadastro seja efetuado no banco e o usuário seja redirecionado logado para a tela Minha
-          Conta, a interface apresenta um popup de erro incorreto ao concluir o cadastro (Bug BG-01).<br>
-          TC-10 ✅ — Tela de exclusão exige a confirmação digitando a palavra "EXCLUIR" em caixa alta, removendo os dados
-          corretamente e retornando à tela inicial.<br>
-          TCs 08 e 09 aguardando execução dos testes.
+          - TC-06 ✅ — O link vermelho "CLIQUE AQUI PARA SE CADASTRAR" na tela de login direciona corretamente para a
+          tela de cadastro.<br>
+          - TC-07 ✅ — O cadastro de novo usuário foi validado e homologado com sucesso. O bug que exibia um popup de
+          erro falso (Bug BG-01) foi corrigido no <code>auth-provider.tsx</code> (utilizando upsert/update como
+          fallback), exibindo agora a mensagem correta de sucesso ("Conta criada! Verifique seu email para confirmar o
+          cadastro").<br>
+          - TC-08 ✅ — Ao tentar cadastrar um e-mail já existente, o sistema retorna e exibe corretamente o popup de erro
+          informando: *"Este email já está cadastrado"*, bloqueando a duplicidade.<br>
+          - TC-09 ✅ — Validação de campos obrigatórios funcionando perfeitamente em tempo real na tela de cadastro,
+          exibindo os alertas específicos para caracteres mínimos de nome/senha e formatos válidos de e-mail e
+          telefone.<br>
+          - TC-10 ✅ — Tela de exclusão exige a confirmação digitando a palavra "EXCLUIR" em caixa alta, removendo os
+          dados corretamente e retornando à tela inicial.
         </div>
       </div>
     </div>
@@ -1164,7 +1185,7 @@
         <div class="evidence-section">
           <h4>📸 Evidências Visuais</h4>
           <div class="evidence-gallery" id="gallery-search">
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc11-home-busca.png')">
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc11-home-busca.jpeg')">
               <img src="evidencias/tc11-home-busca.jpeg" alt="Tela Home com Barra de Busca"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Home e Busca (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">Tela Home com Barra de Busca ✅</div>
@@ -1227,7 +1248,7 @@
               <td>Adicionar produto ao carrinho (não logado)</td>
               <td>Usuário não autenticado</td>
               <td>Solicita login antes de prosseguir</td>
-              <td><span class="status pending dot">Pendente</span></td>
+              <td><span class="status pass dot">Aprovado</span></td>
             </tr>
             <tr>
               <td>TC-17</td>
@@ -1256,23 +1277,28 @@
         <div class="evidence-section">
           <h4>📸 Evidências Visuais</h4>
           <div class="evidence-gallery" id="gallery-purchase">
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc15-detalhes-produto.png')">
-              <img src="evidencias/tc15-detalhes-produto.png" alt="Detalhes do Produto"
+            <div class="evidence-item" onclick="openLightbox('evidencias/produto_mr_loja.jpeg')">
+              <img src="evidencias/produto_mr_loja.jpeg" alt="Detalhes do Produto"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Detalhes do Produto (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">Detalhes do Produto ✅</div>
             </div>
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc17-carrinho.png')">
-              <img src="evidencias/tc17-carrinho.png" alt="Carrinho de Compras"
+            <div class="evidence-item" onclick="openLightbox('evidencias/prod_semlogin_mr.jpeg')">
+              <img src="evidencias/prod_semlogin_mr.jpeg" alt="TC-16 — Detalhes do Produto Sem Login"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-16 — Adicionar ao carrinho deslogado (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">TC-16 — Detalhes Sem Login ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/carrinho_mr.jpeg')">
+              <img src="evidencias/carrinho_mr.jpeg" alt="Carrinho de Compras"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Carrinho de Compras (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">Carrinho de Compras ✅</div>
             </div>
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc18-confirmar-pedido.png')">
-              <img src="evidencias/tc18-confirmar-pedido.png" alt="Confirmar Pedido"
+            <div class="evidence-item" onclick="openLightbox('evidencias/confirm_pedido_loja_mr.jpeg')">
+              <img src="evidencias/confirm_pedido_loja_mr.jpeg" alt="Confirmar Pedido"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Confirmar Pedido (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">Confirmar Pedido ✅</div>
             </div>
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc19-mercado-pago.png')">
-              <img src="evidencias/tc19-mercado-pago.png" alt="Checkout Mercado Pago"
+            <div class="evidence-item" onclick="openLightbox('evidencias/mercado_pago_mr.jpeg')">
+              <img src="evidencias/mercado_pago_mr.jpeg" alt="Checkout Mercado Pago"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Checkout Mercado Pago (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">Checkout Mercado Pago ✅</div>
             </div>
@@ -1281,14 +1307,11 @@
 
         <div class="obs-box">
           <strong>Observações:</strong>
-          - TC-15 ✅ — Botão "Adicionar ao carrinho" na tela de detalhes direciona o produto e o usuário logado para o
-          carrinho com sucesso.<br>
+          - TC-15 ✅ — Botão "Adicionar ao carrinho" na tela de detalhes direciona o produto e o usuário logado para o carrinho com sucesso.<br>
+          - TC-16 ✅ — Ao tentar adicionar o produto ao carrinho sem estar autenticado, o aplicativo redireciona o usuário para a tela de login exigindo a autenticação antes de prosseguir.<br>
           - TC-17 ✅ — Carrinho exibe a lista de itens, quantidades, botão de remover e valor total correto.<br>
-          - TC-18 ✅ — Botão "Continuar" redireciona com sucesso para a tela de Confirmação de Pedido, onde o endereço e
-          as opções de frete (Grátis / Retirada na Loja) são exibidos.<br>
-          - TC-19 ✅ — Integração com o Mercado Pago concluída com sucesso. Exibe opções de pagamento (Cartão, Boleto,
-          etc.) e o botão/ação de retorno para o aplicativo funciona perfeitamente.<br>
-          - TC-16 aguardando execução (Adicionar ao carrinho deslogado).
+          - TC-18 ✅ — Botão "Continuar" redireciona com sucesso para a tela de Confirmação de Pedido, onde o endereço e as opções de frete (Grátis / Retirada na Loja) são exibidos.<br>
+          - TC-19 ✅ — Integração com o Mercado Pago concluída com sucesso. Exibe opções de pagamento (Cartão, Boleto, etc.) e o botão/ação de retorno para o aplicativo funciona perfeitamente.
         </div>
       </div>
     </div>
@@ -1362,28 +1385,28 @@
         <div class="evidence-section">
           <h4>📸 Evidências Visuais</h4>
           <div class="evidence-gallery" id="gallery-profile">
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc20-minha-conta-perfil.png')">
-              <img src="evidencias/tc20-minha-conta-perfil.png" alt="Tela Minha Conta"
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc05-minha-conta.jpeg')">
+              <img src="evidencias/tc05-minha-conta.jpeg" alt="Tela Minha Conta"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Minha Conta (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">Tela Minha Conta ✅</div>
             </div>
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc20-editar-informacoes.png')">
-              <img src="evidencias/tc20-editar-informacoes.png" alt="Editar Informações"
+            <div class="evidence-item" onclick="openLightbox('evidencias/edite_info_mr.jpeg')">
+              <img src="evidencias/edite_info_mr.jpeg" alt="Editar Informações"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Editar Informações (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">Editar Informações ✅</div>
             </div>
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc21-adicionar-endereco.png')">
-              <img src="evidencias/tc21-adicionar-endereco.png" alt="Adicionar Endereço"
+            <div class="evidence-item" onclick="openLightbox('evidencias/tela_endere_mr.jpeg')">
+              <img src="evidencias/tela_endere_mr.jpeg" alt="Adicionar Endereço"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Adicionar Endereço (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">Adicionar Endereço ✅</div>
             </div>
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc23-alterar-senha.png')">
-              <img src="evidencias/tc23-alterar-senha.png" alt="Trocar Senha"
+            <div class="evidence-item" onclick="openLightbox('evidencias/troca_senha_mr.jpeg')">
+              <img src="evidencias/troca_senha_mr.jpeg" alt="Trocar Senha"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Alterar Senha (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">Trocar Senha ✅</div>
             </div>
-            <div class="evidence-item" onclick="openLightbox('evidencias/tc10-excluir-conta.png')">
-              <img src="evidencias/tc10-excluir-conta.png" alt="Excluir Conta"
+            <div class="evidence-item" onclick="openLightbox('evidencias/excluir_conta_mr.jpeg')">
+              <img src="evidencias/excluir_conta_mr.jpeg" alt="Excluir Conta"
                 onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Excluir Conta (imagem na pasta evidencias/)';" />
               <div class="evidence-caption">Excluir Conta ✅</div>
             </div>
@@ -1419,15 +1442,19 @@
     </div>
 
     <div id="bug-log">
-      <div class="bug-card alto">
+      <div class="bug-card alto" style="border-left-color: var(--pass);">
         <div class="bug-header">
           <div>
-            <span class="bug-id">BG-01</span>
+            <span class="bug-id"
+              style="color: var(--pass); background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.25);">BG-01</span>
+            <span class="status pass dot" style="margin-left: 8px;">Resolvido</span>
             <div class="bug-title">Popup de erro incorreto ao concluir cadastro</div>
           </div>
-          <span class="severity alto">ALTO</span>
+          <span class="severity alto" style="background: rgba(34, 197, 94, 0.15); color: var(--pass);">RESOLVIDO</span>
         </div>
         <dl class="bug-body">
+          <dt>Status</dt>
+          <dd><strong style="color: var(--pass);">Corrigido (Homologado)</strong></dd>
           <dt>Fluxo</dt>
           <dd>FL-02 — Cadastro de Novo Usuário (TC-07)</dd>
           <dt>Passos para reproduzir</dt>
@@ -1436,8 +1463,13 @@
           <dt>Resultado Esperado</dt>
           <dd>Usuário cadastrado com sucesso e redirecionado para a tela "Minha Conta" sem exibir alertas de erro.</dd>
           <dt>Resultado Obtido</dt>
-          <dd>Usuário é cadastrado com sucesso e redirecionado logado para a tela "Minha Conta", porém a interface exibe
+          <dd>Usuário era cadastrado com sucesso e redirecionado logado para a tela "Minha Conta", porém a interface
+            exibia
             um popup de erro falso informando que ocorreu uma falha no cadastro.</dd>
+          <dt>Resolução</dt>
+          <dd>Correção efetuada em <code>auth-provider.tsx</code> alterando a inserção direta no Supabase para um método
+            de <code>upsert</code> seguido de fallback com <code>update</code>, contornando a concorrência com a trigger
+            de criação automática de perfil no banco de dados.</dd>
           <dt>Dispositivo / OS</dt>
           <dd>Dispositivo de Teste / Android ou iOS (Manual)</dd>
         </dl>
@@ -1602,9 +1634,9 @@
     ---------------------------------------------------------- */
     const testData = {
       auth: { total: 5, pass: 5, fail: 0, block: 0 },
-      signup: { total: 5, pass: 2, fail: 1, block: 0 },
+      signup: { total: 5, pass: 5, fail: 0, block: 0 },
       search: { total: 4, pass: 4, fail: 0, block: 0 },
-      purchase: { total: 5, pass: 4, fail: 0, block: 0 },
+      purchase: { total: 5, pass: 5, fail: 0, block: 0 },
       profile: { total: 6, pass: 6, fail: 0, block: 0 },
     };
 
