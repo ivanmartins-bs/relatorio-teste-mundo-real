@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatório de Testes Manuais — App Mundo Real</title>
+  <style>
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-page: #0f1117;
+      --bg-card: #1a1d27;
+      --bg-card2: #20233a;
+      --border: #2a2f4a;
+      --accent: #6c63ff;
+      --accent-light: #8b85ff;
+      --pass: #22c55e;
+      --fail: #ef4444;
+      --block: #f59e0b;
+      --pending: #94a3b8;
+      --text-primary: #e2e8f0;
+      --text-muted: #8892a4;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+      --radius: 12px;
+      --font: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ============================================================
+       TOPBAR
+    ============================================================ */
+    .topbar {
+      background: linear-gradient(135deg, #1a1d27 0%, #20233a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-brand .logo-dot {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent), #a78bfa);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .topbar-brand h1 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .topbar-brand span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .topbar-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .badge-version {
+      background: rgba(108, 99, 255, 0.15);
+      border: 1px solid rgba(108, 99, 255, 0.35);
+      color: var(--accent-light);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      background: linear-gradient(135deg, #13162a 0%, #1a1040 50%, #0d1117 100%);
+      padding: 3rem 2rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(108, 99, 255, 0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(108, 99, 255, 0.12);
+      border: 1px solid rgba(108, 99, 255, 0.3);
+      color: var(--accent-light);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 30%, var(--accent-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      max-width: 560px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 1.5rem;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-meta-item label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .hero-meta-item span {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-top: 2px;
+    }
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* ============================================================
+       SCOREBOARD
+    ============================================================ */
+    .scoreboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 2.5rem;
+    }
+
+    .score-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .score-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .score-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .score-card.pass::before {
+      background: var(--pass);
+    }
+
+    .score-card.fail::before {
+      background: var(--fail);
+    }
+
+    .score-card.block::before {
+      background: var(--block);
+    }
+
+    .score-card.total::before {
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    }
+
+    .score-card.pct::before {
+      background: linear-gradient(90deg, var(--pass), #16a34a);
+    }
+
+    .score-icon {
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+
+    .score-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .score-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .score-card.pass .score-num {
+      color: var(--pass);
+    }
+
+    .score-card.fail .score-num {
+      color: var(--fail);
+    }
+
+    .score-card.block .score-num {
+      color: var(--block);
+    }
+
+    .score-card.total .score-num {
+      color: var(--accent-light);
+    }
+
+    .score-card.pct .score-num {
+      color: var(--pass);
+    }
+
+    /* ============================================================
+       PROGRESS BAR
+    ============================================================ */
+    .progress-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .progress-section h3 {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .progress-bar-wrap {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      height: 12px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--pass), #16a34a);
+      border-radius: 20px;
+      transition: width 1s ease;
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ============================================================
+       SECTION TITLE
+    ============================================================ */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title .icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(108, 99, 255, 0.15);
+      border: 1px solid rgba(108, 99, 255, 0.25);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    /* ============================================================
+       FLOW BLOCK
+    ============================================================ */
+    .flow-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .flow-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      user-select: none;
+      background: var(--bg-card2);
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    .flow-header:hover {
+      background: #252944;
+    }
+
+    .flow-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .flow-id {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent-light);
+      background: rgba(108, 99, 255, 0.12);
+      border: 1px solid rgba(108, 99, 255, 0.2);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .flow-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .flow-chevron {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      transition: transform 0.25s;
+    }
+
+    .flow-block.open .flow-chevron {
+      transform: rotate(180deg);
+    }
+
+    .flow-body {
+      display: none;
+      padding: 1.25rem;
+    }
+
+    .flow-block.open .flow-body {
+      display: block;
+    }
+
+    /* ============================================================
+       TEST CASE TABLE
+    ============================================================ */
+    .test-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.25rem;
+    }
+
+    .test-table th {
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .test-table td {
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: top;
+    }
+
+    .test-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .test-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* ============================================================
+       STATUS BADGE
+    ============================================================ */
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status.pass {
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      color: #4ade80;
+    }
+
+    .status.fail {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #f87171;
+    }
+
+    .status.block {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: #fbbf24;
+    }
+
+    .status.pending {
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: var(--text-muted);
+    }
+
+    .status.dot::before {
+      content: '●';
+      font-size: 0.6rem;
+    }
+
+    /* ============================================================
+       SEVERITY BADGE
+    ============================================================ */
+    .severity {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .severity.critico {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+    }
+
+    .severity.alto {
+      background: rgba(249, 115, 22, 0.2);
+      color: #fb923c;
+    }
+
+    .severity.medio {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+    }
+
+    .severity.baixo {
+      background: rgba(148, 163, 184, 0.1);
+      color: var(--text-muted);
+    }
+
+    /* ============================================================
+       EVIDENCE GALLERY
+    ============================================================ */
+    .evidence-section {
+      margin-top: 1rem;
+    }
+
+    .evidence-section h4 {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    .evidence-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+
+    .evidence-item {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .evidence-item:hover {
+      transform: scale(1.03);
+      border-color: var(--accent);
+    }
+
+    .evidence-item img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 9/16;
+      object-fit: cover;
+    }
+
+    .evidence-caption {
+      padding: 6px 8px;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* Placeholder quando não há screenshot */
+    .evidence-placeholder {
+      background: rgba(255, 255, 255, 0.03);
+      border: 2px dashed rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      grid-column: 1 / -1;
+    }
+
+    .evidence-placeholder span {
+      font-size: 1.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      opacity: 0.5;
+    }
+
+    /* ============================================================
+       NOTES / OBSERVATIONS
+    ============================================================ */
+    .obs-box {
+      background: rgba(108, 99, 255, 0.06);
+      border: 1px solid rgba(108, 99, 255, 0.2);
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+
+    .obs-box strong {
+      color: var(--accent-light);
+    }
+
+    /* ============================================================
+       BUG LOG
+    ============================================================ */
+    .bug-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .bug-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 3px;
+      border-radius: 12px 0 0 12px;
+    }
+
+    .bug-card.critico::before {
+      background: var(--fail);
+    }
+
+    .bug-card.alto::before {
+      background: #f97316;
+    }
+
+    .bug-card.medio::before {
+      background: var(--block);
+    }
+
+    .bug-card.baixo::before {
+      background: var(--pending);
+    }
+
+    .bug-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .bug-id {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #f87171;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .bug-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 4px 0;
+    }
+
+    .bug-body {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+    }
+
+    .bug-body dt {
+      color: var(--text-primary);
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    .bug-body dd {
+      margin-left: 0;
+    }
+
+    /* ============================================================
+       MATRIX TABLE
+    ============================================================ */
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .matrix-table th,
+    .matrix-table td {
+      padding: 10px 14px;
+      font-size: 0.83rem;
+      border: 1px solid var(--border);
+    }
+
+    .matrix-table th {
+      background: var(--bg-card2);
+      color: var(--text-muted);
+      font-weight: 700;
+      text-align: left;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .matrix-table tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* ============================================================
+       LIGHTBOX
+    ============================================================ */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lightbox.active {
+      display: flex;
+    }
+
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 0 80px rgba(0, 0, 0, 0.8);
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    #lightbox-close:hover {
+      opacity: 1;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 3rem;
+    }
+
+    .footer strong {
+      color: var(--accent-light);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 640px) {
+      .hero h2 {
+        font-size: 1.4rem;
+      }
+
+      .scoreboard {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .topbar {
+        padding: 0 1rem;
+      }
+
+      .container {
+        padding: 1.25rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox">
+    <span id="lightbox-close" onclick="closeLightbox()">&#x2715;</span>
+    <img id="lightbox-img" src="" alt="Evidência ampliada" />
+  </div>
+
+  <!-- ============================================================
+     TOPBAR
+============================================================ -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <div class="logo-dot">🌎</div>
+      <div>
+        <h1>App Mundo Real</h1>
+        <span>Relatório de Testes Manuais</span>
+      </div>
+    </div>
+    <div class="topbar-meta">
+      <span class="badge-version">v1.0 — Sprint Homologação</span>
+    </div>
+  </header>
+
+  <!-- ============================================================
+     HERO
+============================================================ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">📋 QA Report</div>
+      <h2>Relatório de Testes Manuais</h2>
+      <p>Validação dos fluxos críticos do aplicativo antes da publicação na Google Play Store e Apple store.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <label>Aplicativo</label>
+          <span>App Mundo Real</span>
+        </div>
+        <div class="hero-meta-item">
+          <label>App ID</label>
+          <span>com.bystartup.mundoreal</span>
+        </div>
+        <div class="hero-meta-item">
+          <label>Plataforma</label>
+          <span>Android/IOS</span>
+        </div>
+        <div class="hero-meta-item">
+          <label>Executor</label>
+          <span id="meta-executor">—</span>
+        </div>
+        <div class="hero-meta-item">
+          <label>Data</label>
+          <span id="meta-data">—</span>
+        </div>
+        <div class="hero-meta-item">
+          <label>Ambiente</label>
+          <span>Produção (Homologação)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     MAIN CONTENT
+============================================================ -->
+  <main class="container">
+
+    <!-- SCOREBOARD -->
+    <div class="scoreboard" id="scoreboard">
+      <div class="score-card total">
+        <div class="score-icon">🧪</div>
+        <div class="score-num" id="sc-total">0</div>
+        <div class="score-label">Total de Casos</div>
+      </div>
+      <div class="score-card pass">
+        <div class="score-icon">✅</div>
+        <div class="score-num" id="sc-pass">0</div>
+        <div class="score-label">Aprovados</div>
+      </div>
+      <div class="score-card fail">
+        <div class="score-icon">❌</div>
+        <div class="score-num" id="sc-fail">0</div>
+        <div class="score-label">Reprovados</div>
+      </div>
+      <div class="score-card block">
+        <div class="score-icon">⚠️</div>
+        <div class="score-num" id="sc-block">0</div>
+        <div class="score-label">Bloqueados</div>
+      </div>
+      <div class="score-card pct">
+        <div class="score-icon">📊</div>
+        <div class="score-num" id="sc-pct">—</div>
+        <div class="score-label">Taxa de Aprovação</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="progress-section">
+      <h3>Progresso geral de aprovação</h3>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
+      </div>
+      <div class="progress-labels">
+        <span>0%</span>
+        <span id="progress-pct-label">0%</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+       FLUXO 1 — AUTENTICAÇÃO (Login / Logout)
+  ============================================================ -->
+    <div class="section-title">
+      <div class="icon">🔐</div>
+      Casos de Teste por Fluxo
+    </div>
+
+    <!-- FLUXO 1 -->
+    <div class="flow-block open" id="flow-auth">
+      <div class="flow-header" onclick="toggleFlow('flow-auth')">
+        <div class="flow-header-left">
+          <span class="flow-id">FL-01</span>
+          <span class="flow-title">Autenticação — Login e Logout</span>
+        </div>
+        <span class="flow-chevron">▼</span>
+      </div>
+      <div class="flow-body">
+        <table class="test-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Caso de Teste</th>
+              <th>Pré-condição</th>
+              <th>Resultado Esperado</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TC-01</td>
+              <td>Login com credenciais válidas</td>
+              <td>Usuário cadastrado no sistema</td>
+              <td>Redireciona para perfil com "Sair da conta" visível</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-02</td>
+              <td>Login com e-mail inválido</td>
+              <td>App na tela de login</td>
+              <td>Exibe mensagem de erro adequada</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-03</td>
+              <td>Login com senha incorreta</td>
+              <td>App na tela de login</td>
+              <td>Exibe mensagem de credenciais inválidas</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-04</td>
+              <td>Logout da conta</td>
+              <td>Usuário autenticado</td>
+              <td>Exibe modal de confirmação e retorna à tela de login</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-05</td>
+              <td>Navegar para tela de login via "Minha Conta"</td>
+              <td>Usuário não autenticado</td>
+              <td>Exibe botão "Entrar ou cadastrar-se"</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Evidências FL-01 -->
+        <div class="evidence-section">
+          <h4>📸 Evidências Visuais</h4>
+          <div class="evidence-gallery" id="gallery-auth">
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc05-minha-conta.png')">
+              <img src="evidencias/tc05-minha-conta.jpeg" alt="TC-05 — Tela Minha Conta"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-05 — Minha Conta (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">TC-05 — Tela Minha Conta ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc01-tela-login.png')">
+              <img src="evidencias/tc01-tela-login.jpeg" alt="TC-01/TC-06 — Tela de Login"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-01/06 — Login (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">TC-01/TC-06 — Tela de Login ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc02-03-login-erro.jpg')">
+              <img src="evidencias/tc02-03-login-erro.jpg" alt="TC-02/TC-03 — Alerta de Erro de Login"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-02/03 — Login Erro (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">TC-02/TC-03 — Alerta de Erro de Login ✅</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="obs-box">
+          <strong>Observações:</strong>
+          - TC-01 ✅ — Login com credenciais válidas funcionando e redirecionando corretamente.<br>
+          - TC-02 e TC-03 ✅ — Mensagem de erro correta ("Email ou senha incorretos") exibida quando inseridos dados
+          inválidos/incorretos.<br>
+          - TC-04 ✅ — Logout da conta exibe popup com confirmação e redireciona com sucesso de volta para a tela de
+          login.<br>
+          - TC-05 ✅ — Tela "Minha Conta" renderizada corretamente no estado deslogado. Botão "Entrar ou cadastrar-se"
+          presente e funcional, redirecionando para a tela de Login conforme esperado.<br>
+          Os botões secundários da tela de login (links informativos e "Continuar sem login") operam conforme
+          especificado.
+        </div>
+      </div>
+    </div>
+
+    <!-- FLUXO 2 — CADASTRO -->
+    <div class="flow-block" id="flow-signup">
+      <div class="flow-header" onclick="toggleFlow('flow-signup')">
+        <div class="flow-header-left">
+          <span class="flow-id">FL-02</span>
+          <span class="flow-title">Cadastro de Novo Usuário</span>
+        </div>
+        <span class="flow-chevron">▼</span>
+      </div>
+      <div class="flow-body">
+        <table class="test-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Caso de Teste</th>
+              <th>Pré-condição</th>
+              <th>Resultado Esperado</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TC-06</td>
+              <td>Navegação até tela de cadastro</td>
+              <td>Usuário não autenticado</td>
+              <td>Tela de Cadastro exibida corretamente</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-07</td>
+              <td>Cadastro com dados válidos completos</td>
+              <td>Nome, e-mail, telefone e senha preenchidos</td>
+              <td>Usuário logado automaticamente após cadastro</td>
+              <td><span class="status fail dot">Reprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-08</td>
+              <td>Cadastro com e-mail já existente</td>
+              <td>E-mail já cadastrado no banco</td>
+              <td>Mensagem de erro informando duplicidade</td>
+              <td><span class="status pending dot">Pendente</span></td>
+            </tr>
+            <tr>
+              <td>TC-09</td>
+              <td>Cadastro com campos obrigatórios vazios</td>
+              <td>Formulário vazio</td>
+              <td>Validações exibidas para cada campo obrigatório</td>
+              <td><span class="status pending dot">Pendente</span></td>
+            </tr>
+            <tr>
+              <td>TC-10</td>
+              <td>Exclusão de conta após cadastro</td>
+              <td>Usuário recém-cadastrado logado</td>
+              <td>Conta excluída, app retorna ao estado deslogado</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="evidence-section">
+          <h4>📸 Evidências Visuais</h4>
+          <div class="evidence-gallery" id="gallery-signup">
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc01-tela-login.png')">
+              <img src="evidencias/tc01-tela-login.png" alt="TC-06 — Tela de Login (Acesso ao Cadastro)"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-06 — Acesso ao Cadastro via Login (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">TC-06 — Acesso ao Cadastro via Login ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc06-tela-cadastro.png')">
+              <img src="evidencias/tc06-tela-cadastro.png" alt="TC-06/TC-07 — Tela de Cadastro"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-06/TC-07 — Cadastro (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">TC-06/TC-07 — Tela de Cadastro ⚠️</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="obs-box">
+          <strong>Observações:</strong>
+          TC-06 ✅ — O link vermelho "CLIQUE AQUI PARA SE CADASTRAR" na tela de login direciona corretamente para a tela
+          de cadastro.<br>
+          TC-07 ❌ — Embora o cadastro seja efetuado no banco e o usuário seja redirecionado logado para a tela Minha
+          Conta, a interface apresenta um popup de erro incorreto ao concluir o cadastro (Bug BG-01).<br>
+          TC-10 ✅ — Tela de exclusão exige a confirmação digitando a palavra "EXCLUIR" em caixa alta, removendo os dados
+          corretamente e retornando à tela inicial.<br>
+          TCs 08 e 09 aguardando execução dos testes.
+        </div>
+      </div>
+    </div>
+
+    <!-- FLUXO 3 — BUSCA -->
+    <div class="flow-block" id="flow-search">
+      <div class="flow-header" onclick="toggleFlow('flow-search')">
+        <div class="flow-header-left">
+          <span class="flow-id">FL-03</span>
+          <span class="flow-title">Busca de Produtos</span>
+        </div>
+        <span class="flow-chevron">▼</span>
+      </div>
+      <div class="flow-body">
+        <table class="test-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Caso de Teste</th>
+              <th>Pré-condição</th>
+              <th>Resultado Esperado</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TC-11</td>
+              <td>Acionar campo de busca na Home</td>
+              <td>App na tela inicial</td>
+              <td>Campo de busca exibido e focado</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-12</td>
+              <td>Busca com termo válido ("Caneca")</td>
+              <td>Campo de busca ativo</td>
+              <td>Exibe "Você pesquisou por: Caneca" com resultados</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-13</td>
+              <td>Busca com termo sem resultados</td>
+              <td>Campo de busca ativo</td>
+              <td>Exibe estado vazio / mensagem de sem resultados</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-14</td>
+              <td>Limpar campo de busca</td>
+              <td>Busca realizada</td>
+              <td>Lista retorna ao estado inicial</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="evidence-section">
+          <h4>📸 Evidências Visuais</h4>
+          <div class="evidence-gallery" id="gallery-search">
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc11-home-busca.png')">
+              <img src="evidencias/tc11-home-busca.jpeg" alt="Tela Home com Barra de Busca"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Home e Busca (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Tela Home com Barra de Busca ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc13-busca-sem-resultados.png')">
+              <img src="evidencias/tc13-busca-sem-resultados.png" alt="Busca sem Resultados"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Busca sem Resultados (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Busca sem Resultados ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc14-limpar-busca.png')">
+              <img src="evidencias/tc14-limpar-busca.png" alt="Limpar Busca"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Limpar Busca (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Limpar Busca ✅</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="obs-box">
+          <strong>Observações:</strong>
+          - TC-11 ✅ — A barra de busca no topo da página inicial ("Pesquisar") está acessível e visível.<br>
+          - TC-12 ✅ — A busca de produtos cadastrados está funcionando de acordo com as especificações.<br>
+          - TC-13 ✅ — Busca de termo inexistente (ex: "Casaco") exibe o estado vazio ("Nenhum produto encontrado
+          para...") corretamente conforme o esperado.<br>
+          - TC-14 ✅ — Limpar o campo de busca remove o termo pesquisado e retorna a tela de busca ao seu estado inicial
+          (com instrução "Digite pelo menos 2 caracteres...").
+        </div>
+      </div>
+    </div>
+
+    <!-- FLUXO 4 — COMPRA -->
+    <div class="flow-block" id="flow-purchase">
+      <div class="flow-header" onclick="toggleFlow('flow-purchase')">
+        <div class="flow-header-left">
+          <span class="flow-id">FL-04</span>
+          <span class="flow-title">Fluxo de Compra (Carrinho → Pedido)</span>
+        </div>
+        <span class="flow-chevron">▼</span>
+      </div>
+      <div class="flow-body">
+        <table class="test-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Caso de Teste</th>
+              <th>Pré-condição</th>
+              <th>Resultado Esperado</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TC-15</td>
+              <td>Adicionar produto ao carrinho (logado)</td>
+              <td>Usuário autenticado, produto disponível</td>
+              <td>App redireciona para tela do carrinho</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-16</td>
+              <td>Adicionar produto ao carrinho (não logado)</td>
+              <td>Usuário não autenticado</td>
+              <td>Solicita login antes de prosseguir</td>
+              <td><span class="status pending dot">Pendente</span></td>
+            </tr>
+            <tr>
+              <td>TC-17</td>
+              <td>Visualizar carrinho com itens</td>
+              <td>Produto adicionado ao carrinho</td>
+              <td>Exibe itens, quantidades e total corretos</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-18</td>
+              <td>Prosseguir para confirmação de pedido</td>
+              <td>Carrinho com itens</td>
+              <td>Tela "Confirmar Pedido" exibida</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-19</td>
+              <td>Finalizar compra</td>
+              <td>Tela de confirmação exibida</td>
+              <td>Pedido criado com sucesso, confirmação exibida</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="evidence-section">
+          <h4>📸 Evidências Visuais</h4>
+          <div class="evidence-gallery" id="gallery-purchase">
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc15-detalhes-produto.png')">
+              <img src="evidencias/tc15-detalhes-produto.png" alt="Detalhes do Produto"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Detalhes do Produto (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Detalhes do Produto ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc17-carrinho.png')">
+              <img src="evidencias/tc17-carrinho.png" alt="Carrinho de Compras"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Carrinho de Compras (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Carrinho de Compras ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc18-confirmar-pedido.png')">
+              <img src="evidencias/tc18-confirmar-pedido.png" alt="Confirmar Pedido"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Confirmar Pedido (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Confirmar Pedido ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc19-mercado-pago.png')">
+              <img src="evidencias/tc19-mercado-pago.png" alt="Checkout Mercado Pago"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Checkout Mercado Pago (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Checkout Mercado Pago ✅</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="obs-box">
+          <strong>Observações:</strong>
+          - TC-15 ✅ — Botão "Adicionar ao carrinho" na tela de detalhes direciona o produto e o usuário logado para o
+          carrinho com sucesso.<br>
+          - TC-17 ✅ — Carrinho exibe a lista de itens, quantidades, botão de remover e valor total correto.<br>
+          - TC-18 ✅ — Botão "Continuar" redireciona com sucesso para a tela de Confirmação de Pedido, onde o endereço e
+          as opções de frete (Grátis / Retirada na Loja) são exibidos.<br>
+          - TC-19 ✅ — Integração com o Mercado Pago concluída com sucesso. Exibe opções de pagamento (Cartão, Boleto,
+          etc.) e o botão/ação de retorno para o aplicativo funciona perfeitamente.<br>
+          - TC-16 aguardando execução (Adicionar ao carrinho deslogado).
+        </div>
+      </div>
+    </div>
+
+    <!-- FLUXO 5 — PERFIL E CONFIGURAÇÕES -->
+    <div class="flow-block" id="flow-profile">
+      <div class="flow-header" onclick="toggleFlow('flow-profile')">
+        <div class="flow-header-left">
+          <span class="flow-id">FL-05</span>
+          <span class="flow-title">Perfil e Configurações (Minha Conta)</span>
+        </div>
+        <span class="flow-chevron">▼</span>
+      </div>
+      <div class="flow-body">
+        <table class="test-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Caso de Teste</th>
+              <th>Pré-condição</th>
+              <th>Resultado Esperado</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TC-20</td>
+              <td>Editar informações do perfil</td>
+              <td>Acessar "Editar informações do perfil"</td>
+              <td>Edição de campos Nome e Telefone habilitada e alteração salva com sucesso</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-21</td>
+              <td>Adicionar Novo Endereço</td>
+              <td>Acessar "Endereços" → "Adicionar Endereço"</td>
+              <td>Habilita formulário completo de endereço com busca por CEP</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-22</td>
+              <td>Suporte via WhatsApp</td>
+              <td>Tocar no botão "Suporte via WhatsApp"</td>
+              <td>Redireciona para o link da API do WhatsApp cadastrado</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-23</td>
+              <td>Trocar Senha da Conta</td>
+              <td>Acessar "Trocar Senha"</td>
+              <td>Habilita formulário com senha atual, nova senha e confirmação</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-24</td>
+              <td>Visualizar Termos e Condições</td>
+              <td>Acessar "Termos e..."</td>
+              <td>Exibe link e documento de Termos de Uso com sucesso</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-25</td>
+              <td>Histórico de Pedidos e Moedas</td>
+              <td>Tocar nos botões "Meus" e "Minhas"</td>
+              <td>Redireciona para histórico de pedidos e tela de moedas ("realitos")</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="evidence-section">
+          <h4>📸 Evidências Visuais</h4>
+          <div class="evidence-gallery" id="gallery-profile">
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc20-minha-conta-perfil.png')">
+              <img src="evidencias/tc20-minha-conta-perfil.png" alt="Tela Minha Conta"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Minha Conta (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Tela Minha Conta ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc20-editar-informacoes.png')">
+              <img src="evidencias/tc20-editar-informacoes.png" alt="Editar Informações"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Editar Informações (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Editar Informações ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc21-adicionar-endereco.png')">
+              <img src="evidencias/tc21-adicionar-endereco.png" alt="Adicionar Endereço"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Adicionar Endereço (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Adicionar Endereço ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc23-alterar-senha.png')">
+              <img src="evidencias/tc23-alterar-senha.png" alt="Trocar Senha"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Alterar Senha (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Trocar Senha ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc10-excluir-conta.png')">
+              <img src="evidencias/tc10-excluir-conta.png" alt="Excluir Conta"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Excluir Conta (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Excluir Conta ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc24-termos-politicas.png')">
+              <img src="evidencias/tc24-termos-politicas.png" alt="Termos e Políticas"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 Termos e Políticas (imagem na pasta evidencias/)';" />
+              <div class="evidence-caption">Termos e Políticas ✅</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="obs-box">
+          <strong>Observações:</strong>
+          - Os fluxos de edição de dados, gerenciamento de endereços, alteração de senha e exclusão permanente foram
+          validados e estão funcionando perfeitamente.<br>
+          - <strong>Suporte via WhatsApp (TC-22):</strong> Implementado e homologado com sucesso. Foi realizada a
+          importação da API <code>Linking</code> do <code>react-native</code> no arquivo <code>account-screen.tsx</code>
+          e criada a função de ação <code>handleWhatsAppSupport</code> dentro do componente <code>AccountScreen</code>,
+          associada ao evento <code>onPress</code> do componente <code>ProfileItem</code> de suporte para redirecionar o
+          usuário ao WhatsApp cadastrado, tratando eventuais falhas com alerta amigável.<br>
+          - <strong>Termos e Condições (TC-24):</strong> aprovado e homologado com sucesso. O link definitivo de Termos
+          e Políticas foi implementado direcionando para a página correta.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+       LOG DE BUGS
+  ============================================================ -->
+    <div class="section-title" style="margin-top: 2.5rem;">
+      <div class="icon">🐛</div>
+      Log de Bugs e Não Conformidades
+    </div>
+
+    <div id="bug-log">
+      <div class="bug-card alto">
+        <div class="bug-header">
+          <div>
+            <span class="bug-id">BG-01</span>
+            <div class="bug-title">Popup de erro incorreto ao concluir cadastro</div>
+          </div>
+          <span class="severity alto">ALTO</span>
+        </div>
+        <dl class="bug-body">
+          <dt>Fluxo</dt>
+          <dd>FL-02 — Cadastro de Novo Usuário (TC-07)</dd>
+          <dt>Passos para reproduzir</dt>
+          <dd>1. Acessar a tela de cadastro.<br>2. Preencher Nome, E-mail, Telefone e Senha com dados válidos.<br>3.
+            Tocar em CADASTRAR.</dd>
+          <dt>Resultado Esperado</dt>
+          <dd>Usuário cadastrado com sucesso e redirecionado para a tela "Minha Conta" sem exibir alertas de erro.</dd>
+          <dt>Resultado Obtido</dt>
+          <dd>Usuário é cadastrado com sucesso e redirecionado logado para a tela "Minha Conta", porém a interface exibe
+            um popup de erro falso informando que ocorreu uma falha no cadastro.</dd>
+          <dt>Dispositivo / OS</dt>
+          <dd>Dispositivo de Teste / Android ou iOS (Manual)</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- TEMPLATE OCULTO DE BUG CARD (usado via JS) -->
+    <template id="bug-template">
+      <div class="bug-card">
+        <div class="bug-header">
+          <div>
+            <span class="bug-id"></span>
+            <div class="bug-title"></div>
+          </div>
+          <span class="severity"></span>
+        </div>
+        <dl class="bug-body">
+          <dt>Fluxo</dt>
+          <dd class="bug-flow"></dd>
+          <dt>Passos para reproduzir</dt>
+          <dd class="bug-steps"></dd>
+          <dt>Resultado Esperado</dt>
+          <dd class="bug-expected"></dd>
+          <dt>Resultado Obtido</dt>
+          <dd class="bug-actual"></dd>
+          <dt>Dispositivo / OS</dt>
+          <dd class="bug-device"></dd>
+        </dl>
+      </div>
+    </template>
+
+    <!-- ============================================================
+       MATRIZ DE COBERTURA
+  ============================================================ -->
+    <div class="section-title" style="margin-top: 2.5rem;">
+      <div class="icon">📐</div>
+      Matriz de Cobertura por Feature
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Feature / Fluxo</th>
+          <th>Total TCs</th>
+          <th>Executados</th>
+          <th>Aprovados</th>
+          <th>Reprovados</th>
+          <th>Bloqueados</th>
+          <th>Cobertura</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🔐 Autenticação (Login/Logout)</td>
+          <td>5</td>
+          <td id="mx-auth-exec">0</td>
+          <td id="mx-auth-pass">0</td>
+          <td id="mx-auth-fail">0</td>
+          <td id="mx-auth-block">0</td>
+          <td><span class="status pending dot" id="mx-auth-cov">0%</span></td>
+        </tr>
+        <tr>
+          <td>📝 Cadastro de Usuário</td>
+          <td>5</td>
+          <td id="mx-signup-exec">0</td>
+          <td id="mx-signup-pass">0</td>
+          <td id="mx-signup-fail">0</td>
+          <td id="mx-signup-block">0</td>
+          <td><span class="status pending dot" id="mx-signup-cov">0%</span></td>
+        </tr>
+        <tr>
+          <td>🔍 Busca de Produtos</td>
+          <td>4</td>
+          <td id="mx-search-exec">0</td>
+          <td id="mx-search-pass">0</td>
+          <td id="mx-search-fail">0</td>
+          <td id="mx-search-block">0</td>
+          <td><span class="status pending dot" id="mx-search-cov">0%</span></td>
+        </tr>
+        <tr>
+          <td>🛒 Fluxo de Compra</td>
+          <td>5</td>
+          <td id="mx-purchase-exec">0</td>
+          <td id="mx-purchase-pass">0</td>
+          <td id="mx-purchase-fail">0</td>
+          <td id="mx-purchase-block">0</td>
+          <td><span class="status pending dot" id="mx-purchase-cov">0%</span></td>
+        </tr>
+        <tr>
+          <td>👤 Perfil e Configurações</td>
+          <td>6</td>
+          <td id="mx-profile-exec">0</td>
+          <td id="mx-profile-pass">0</td>
+          <td id="mx-profile-fail">0</td>
+          <td id="mx-profile-block">0</td>
+          <td><span class="status pending dot" id="mx-profile-cov">0%</span></td>
+        </tr>
+        <tr style="font-weight: 700;">
+          <td>Total Geral</td>
+          <td>25</td>
+          <td id="mx-total-exec">0</td>
+          <td id="mx-total-pass">0</td>
+          <td id="mx-total-fail">0</td>
+          <td id="mx-total-block">0</td>
+          <td><span class="status pending dot" id="mx-total-cov">0%</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <strong>App Mundo Real</strong> — Relatório de Testes Manuais &nbsp;·&nbsp;
+    Gerado em <span id="footer-date"></span> &nbsp;·&nbsp;
+    Ivan Martins &nbsp;·&nbsp
+    By Startup &copy; 2026
+  </footer>
+
+  <!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+  <script>
+    /* ----------------------------------------------------------
+       META DINÂMICO
+    ---------------------------------------------------------- */
+    const now = new Date();
+    const fmt = (d) => d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+    document.getElementById('meta-data').textContent = fmt(now);
+    document.getElementById('footer-date').textContent = fmt(now);
+
+    /* Executor — edite aqui conforme necessário */
+    document.getElementById('meta-executor').textContent = 'Equipe DEV/QA — By Startup';
+
+    /* ----------------------------------------------------------
+       ACORDEON DOS FLUXOS
+    ---------------------------------------------------------- */
+    function toggleFlow(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle('open');
+    }
+
+    /* ----------------------------------------------------------
+       LIGHTBOX
+    ---------------------------------------------------------- */
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('active');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.getElementById('lightbox-img').src = '';
+    }
+    document.getElementById('lightbox').addEventListener('click', function (e) {
+      if (e.target === this) closeLightbox();
+    });
+
+    /* ----------------------------------------------------------
+       ESTADO DOS TESTES
+       Estrutura de dados para ser atualizada conforme os
+       screenshots chegam.
+    ---------------------------------------------------------- */
+    const testData = {
+      auth: { total: 5, pass: 5, fail: 0, block: 0 },
+      signup: { total: 5, pass: 2, fail: 1, block: 0 },
+      search: { total: 4, pass: 4, fail: 0, block: 0 },
+      purchase: { total: 5, pass: 4, fail: 0, block: 0 },
+      profile: { total: 6, pass: 6, fail: 0, block: 0 },
+    };
+
+    /* ----------------------------------------------------------
+       CÁLCULO E ATUALIZAÇÃO DO SCOREBOARD
+    ---------------------------------------------------------- */
+    function updateScoreboard() {
+      let totTotal = 0, totPass = 0, totFail = 0, totBlock = 0;
+
+      Object.keys(testData).forEach(key => {
+        const d = testData[key];
+        const exec = d.pass + d.fail + d.block;
+        const cov = d.total > 0 ? Math.round((exec / d.total) * 100) : 0;
+        const passStr = exec > 0 ? Math.round((d.pass / exec) * 100) + '%' : '—';
+
+        // Atualizar matriz
+        const prefix = `mx-${key}`;
+        setText(`${prefix}-exec`, exec);
+        setText(`${prefix}-pass`, d.pass);
+        setText(`${prefix}-fail`, d.fail);
+        setText(`${prefix}-block`, d.block);
+        setStatusText(`${prefix}-cov`, `${cov}%`, cov === 100 ? 'pass' : cov > 0 ? 'block' : 'pending');
+
+        totTotal += d.total;
+        totPass += d.pass;
+        totFail += d.fail;
+        totBlock += d.block;
+      });
+
+      const totExec = totPass + totFail + totBlock;
+      const pct = totExec > 0 ? Math.round((totPass / totExec) * 100) : 0;
+      const cov = Math.round((totExec / totTotal) * 100);
+
+      // Scoreboard
+      setText('sc-total', totTotal);
+      setText('sc-pass', totPass);
+      setText('sc-fail', totFail);
+      setText('sc-block', totBlock);
+      setText('sc-pct', totExec > 0 ? pct + '%' : '—');
+
+      // Progress
+      document.getElementById('progress-bar').style.width = cov + '%';
+      setText('progress-pct-label', cov + '%');
+
+      // Totais da matriz
+      setText('mx-total-exec', totExec);
+      setText('mx-total-pass', totPass);
+      setText('mx-total-fail', totFail);
+      setText('mx-total-block', totBlock);
+      setStatusText('mx-total-cov', cov + '%', cov === 100 ? 'pass' : cov > 0 ? 'block' : 'pending');
+    }
+
+    function setText(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    }
+
+    function setStatusText(id, text, cls) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = text;
+      el.className = `status ${cls} dot`;
+    }
+
+    /* ----------------------------------------------------------
+       ADICIONAR SCREENSHOT / EVIDÊNCIA
+       Chamado quando o testador envia um screenshot.
+       galleryId: ID da div gallery
+       src: URL ou base64 da imagem
+       caption: legenda
+    ---------------------------------------------------------- */
+    function addEvidence(galleryId, src, caption) {
+      const gallery = document.getElementById(galleryId);
+      if (!gallery) return;
+      // Remove placeholder se existir
+      const ph = gallery.querySelector('.evidence-placeholder');
+      if (ph) ph.remove();
+
+      const item = document.createElement('div');
+      item.className = 'evidence-item';
+      item.onclick = () => openLightbox(src);
+      item.innerHTML = `<img src="${src}" alt="${caption}" /><div class="evidence-caption">${caption}</div>`;
+      gallery.appendChild(item);
+    }
+
+    /* ----------------------------------------------------------
+       ADICIONAR BUG AO LOG
+       Chamado ao identificar um bug nos testes.
+    ---------------------------------------------------------- */
+    function addBug({ id, title, severity, flow, steps, expected, actual, device }) {
+      const log = document.getElementById('bug-log');
+      const ph = log.querySelector('.evidence-placeholder');
+      if (ph) ph.remove();
+
+      const card = document.createElement('div');
+      card.className = `bug-card ${severity}`;
+      card.innerHTML = `
+      <div class="bug-header">
+        <div>
+          <span class="bug-id">${id}</span>
+          <div class="bug-title">${title}</div>
+        </div>
+        <span class="severity ${severity}">${severity.toUpperCase()}</span>
+      </div>
+      <dl class="bug-body">
+        <dt>Fluxo</dt><dd>${flow}</dd>
+        <dt>Passos para reproduzir</dt><dd>${steps}</dd>
+        <dt>Resultado Esperado</dt><dd>${expected}</dd>
+        <dt>Resultado Obtido</dt><dd>${actual}</dd>
+        <dt>Dispositivo / OS</dt><dd>${device}</dd>
+      </dl>`;
+      log.appendChild(card);
+    }
+
+    /* ----------------------------------------------------------
+       ATUALIZAR STATUS DE UM CASO DE TESTE
+       tcIndex: índice na tabela (1-based)
+       flowId: ID do flow-block
+       status: 'pass' | 'fail' | 'block'
+    ---------------------------------------------------------- */
+    function updateTestStatus(flowId, tcIndex, status) {
+      const flow = document.getElementById(flowId);
+      if (!flow) return;
+      const rows = flow.querySelectorAll('.test-table tbody tr');
+      if (!rows[tcIndex - 1]) return;
+      const tdStatus = rows[tcIndex - 1].querySelector('td:last-child');
+      const labels = { pass: 'Aprovado', fail: 'Reprovado', block: 'Bloqueado', pending: 'Pendente' };
+      tdStatus.innerHTML = `<span class="status ${status} dot">${labels[status] || status}</span>`;
+    }
+
+    /* ----------------------------------------------------------
+       INICIALIZAÇÃO
+    ---------------------------------------------------------- */
+    updateScoreboard();
+  </script>
+</body>
+
+</html>
