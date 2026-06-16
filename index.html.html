@@ -1307,11 +1307,15 @@
 
         <div class="obs-box">
           <strong>Observações:</strong>
-          - TC-15 ✅ — Botão "Adicionar ao carrinho" na tela de detalhes direciona o produto e o usuário logado para o carrinho com sucesso.<br>
-          - TC-16 ✅ — Ao tentar adicionar o produto ao carrinho sem estar autenticado, o aplicativo redireciona o usuário para a tela de login exigindo a autenticação antes de prosseguir.<br>
+          - TC-15 ✅ — Botão "Adicionar ao carrinho" na tela de detalhes direciona o produto e o usuário logado para o
+          carrinho com sucesso.<br>
+          - TC-16 ✅ — Ao tentar adicionar o produto ao carrinho sem estar autenticado, o aplicativo redireciona o
+          usuário para a tela de login exigindo a autenticação antes de prosseguir.<br>
           - TC-17 ✅ — Carrinho exibe a lista de itens, quantidades, botão de remover e valor total correto.<br>
-          - TC-18 ✅ — Botão "Continuar" redireciona com sucesso para a tela de Confirmação de Pedido, onde o endereço e as opções de frete (Grátis / Retirada na Loja) são exibidos.<br>
-          - TC-19 ✅ — Integração com o Mercado Pago concluída com sucesso. Exibe opções de pagamento (Cartão, Boleto, etc.) e o botão/ação de retorno para o aplicativo funciona perfeitamente.
+          - TC-18 ✅ — Botão "Continuar" redireciona com sucesso para a tela de Confirmação de Pedido, onde o endereço e
+          as opções de frete (Grátis / Retirada na Loja) são exibidos.<br>
+          - TC-19 ✅ — Integração com o Mercado Pago concluída com sucesso. Exibe opções de pagamento (Cartão, Boleto,
+          etc.) e o botão/ação de retorno para o aplicativo funciona perfeitamente.
         </div>
       </div>
     </div>
@@ -1429,6 +1433,131 @@
           usuário ao WhatsApp cadastrado, tratando eventuais falhas com alerta amigável.<br>
           - <strong>Termos e Condições (TC-24):</strong> aprovado e homologado com sucesso. O link definitivo de Termos
           e Políticas foi implementado direcionando para a página correta.
+        </div>
+      </div>
+    </div>
+
+    <!-- FLUXO 6 — REALITOS -->
+    <div class="flow-block" id="flow-realitos">
+      <div class="flow-header" onclick="toggleFlow('flow-realitos')">
+        <div class="flow-header-left">
+          <span class="flow-id">FL-06</span>
+          <span class="flow-title">Sistema de Realitos (Moedas de Fidelidade)</span>
+        </div>
+        <span class="flow-chevron">▼</span>
+      </div>
+      <div class="flow-body">
+        <table class="test-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Caso de Teste</th>
+              <th>Pré-condição</th>
+              <th>Resultado Esperado</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TC-26</td>
+              <td>Visualizar saldo de Realitos na tela "Minhas Moedas"</td>
+              <td>Usuário autenticado com saldo inserido via banco (≥ 1 realito)</td>
+              <td>Tela exibe saldo correto e regras de uso/ganho</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-27</td>
+              <td>Saldo zero — estado vazio na tela "Minhas Moedas"</td>
+              <td>Usuário autenticado com balance = 0 no banco</td>
+              <td>Tela exibe saldo 0 sem erros de layout</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-28</td>
+              <td>Toggle "Usar Realitos" visível no checkout com saldo suficiente</td>
+              <td>Carrinho com produto + saldo ≥ pedidoMinimoUso (R$250 ajustado)</td>
+              <td>Seção de desconto com Realitos aparece no resumo do checkout</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-29</td>
+              <td>Desconto calculado corretamente ao ativar Realitos no checkout</td>
+              <td>Toggle de Realitos ativado no checkout</td>
+              <td>Valor de desconto (realitos × valorRealito) deduzido do total corretamente</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-30</td>
+              <td>Toggle de Realitos oculto quando saldo é insuficiente</td>
+              <td>Usuário com saldo = 0 ou pedido abaixo do mínimo</td>
+              <td>Seção de Realitos não aparece ou está desabilitada no checkout</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+            <tr>
+              <td>TC-31</td>
+              <td>Alterar fator de conversão no Painel Administrativo de R$ 0,60 para R$ 1,00</td>
+              <td>Acesso ao painel administrativo e simulação de compra no app</td>
+              <td>Configuração atualizada no painel e novo valor de desconto aplicado no checkout (1 moeda = R$ 1,00)</td>
+              <td><span class="status pass dot">Aprovado</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="evidence-section">
+          <h4>📸 Evidências Visuais</h4>
+          <div class="evidence-gallery" id="gallery-realitos">
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc26-minhas-moedas.png')">
+              <img src="evidencias/tc26-minhas-moedas.png" alt="TC-26 — Tela Minhas Moedas com saldo 510"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-26 — Salve o screenshot como evidencias/tc26-minhas-moedas.png';" />
+              <div class="evidence-caption">TC-26 — Tela Minhas Moedas (510 Realitos) ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc27-saldo-zero.png')">
+              <img src="evidencias/tc27-saldo-zero.png" alt="TC-27 — Tela Minhas Moedas com saldo zero"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-27 — Salve o screenshot como evidencias/tc27-saldo-zero.png';" />
+              <div class="evidence-caption">TC-27 — Saldo Zero no Minhas Moedas ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc28-checkout-realitos.png')">
+              <img src="evidencias/tc28-checkout-realitos.png" alt="TC-28 — Toggle usar Realitos visível no checkout"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-28 — Salve o screenshot como evidencias/tc28-checkout-realitos.png';" />
+              <div class="evidence-caption">TC-28 — Toggle Usar Realitos no Checkout ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc29-desconto-realitos.png')">
+              <img src="evidencias/tc29-desconto-realitos.png" alt="TC-29 — Desconto de Realitos calculado e aplicado no checkout"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-29 — Salve o screenshot como evidencias/tc29-desconto-realitos.png';" />
+              <div class="evidence-caption">TC-29 — Desconto de Realitos Aplicado ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc30-realitos-oculto.png')">
+              <img src="evidencias/tc30-realitos-oculto.png" alt="TC-30 — Seção de Realitos oculta por saldo zero"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-30 — Salve o screenshot como evidencias/tc30-realitos-oculto.png';" />
+              <div class="evidence-caption">TC-30 — Seção Realitos Oculta no Checkout ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc31-painel-admin-06.png')">
+              <img src="evidencias/tc31-painel-admin-06.png" alt="TC-31 — Painel Admin com regra de R$ 0,60"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-31 — Salve o screenshot como evidencias/tc31-painel-admin-06.png';" />
+              <div class="evidence-caption">TC-31 — Painel Admin (R$ 0,60) ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc31-painel-admin-10.png')">
+              <img src="evidencias/tc31-painel-admin-10.png" alt="TC-31 — Painel Admin alterado para R$ 1,00"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-31 — Salve o screenshot como evidencias/tc31-painel-admin-10.png';" />
+              <div class="evidence-caption">TC-31 — Painel Admin (R$ 1,00) ✅</div>
+            </div>
+            <div class="evidence-item" onclick="openLightbox('evidencias/tc31-checkout-realitos-10.png')">
+              <img src="evidencias/tc31-checkout-realitos-10.png" alt="TC-31 — Checkout com desconto aplicado com nova regra de R$ 1,00"
+                onerror="this.style.display='none';this.parentElement.querySelector('.evidence-caption').textContent='📷 TC-31 — Salve o screenshot como evidencias/tc31-checkout-realitos-10.png';" />
+              <div class="evidence-caption">TC-31 — Checkout Novo Fator R$ 1,00 ✅</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="obs-box">
+          <strong>Observações:</strong>
+          - TC-26 ✅ — Tela "Minhas Moedas" exibe corretamente o saldo de <strong>510 Realitos disponíveis</strong> carregado do banco (<code>realitos_balances</code>). A seção "Como funciona?" apresenta as regras (R$150 gastos = 15 Realitos; cada moeda = R$0,60 de desconto; pedido mínimo de R$250 para uso) sem erros de layout ou renderização.<br>
+          - TC-27 ✅ — Com o saldo do usuário zerado no banco de dados, a tela "Minhas Moedas" renderiza perfeitamente o estado com <strong>0 Realitos disponíveis</strong>, sem apresentar quebras de layout ou falhas de carregamento.<br>
+          - TC-28 ✅ — O seletor de "Aplicar moedas" é exibido corretamente na tela de confirmação de pedido quando o cliente possui saldo e o valor do pedido ultrapassa R$ 250,00 (subtotal of R$ 537,00 e 510 Realitos disponíveis para desconto de R$ 306,00).<br>
+          - TC-29 ✅ — Ao ativar o toggle/seletor "Aplicar moedas", o desconto de <strong>R$ 306,00</strong> (510 moedas x R$ 0,60/moeda) é calculated em tempo real, exibido no resumo do pedido e deduzido corretamente do total a pagar, que passa de R$ 537,00 para R$ 231,00.<br>
+          - TC-30 ✅ — Quando o saldo de moedas do cliente é zerado, a seção de "Moedas Realitos" e o toggle para aplicar moedas ficam completamente ocultos na tela de confirmação de pedido, não afetando o valor normal da compra.<br>
+          - TC-31 ✅ — Homologado com sucesso a alteração dinâmica de regras de negócio a partir do Painel Administrativo. O valor do Realito foi alterado de R$ 0,60 para R$ 1,00 no Painel Admin e o aplicativo móvel aplicou o novo fator em tempo real na tela de confirmação do pedido, dando <strong>R$ 500,00 de desconto</strong> para 500 moedas aplicadas (Total a pagar reduzido de R$ 537,00 para R$ 37,00).<br><br>
+          <strong>⚠️ Lembrete:</strong> Não confirmar o pedido — parar antes de pressionar "Finalizar Compra".
         </div>
       </div>
     </div>
@@ -1567,9 +1696,18 @@
           <td id="mx-profile-block">0</td>
           <td><span class="status pending dot" id="mx-profile-cov">0%</span></td>
         </tr>
+        <tr>
+          <td>🪙 Sistema de Realitos</td>
+          <td>6</td>
+          <td id="mx-realitos-exec">0</td>
+          <td id="mx-realitos-pass">0</td>
+          <td id="mx-realitos-fail">0</td>
+          <td id="mx-realitos-block">0</td>
+          <td><span class="status pending dot" id="mx-realitos-cov">0%</span></td>
+        </tr>
         <tr style="font-weight: 700;">
           <td>Total Geral</td>
-          <td>25</td>
+          <td>31</td>
           <td id="mx-total-exec">0</td>
           <td id="mx-total-pass">0</td>
           <td id="mx-total-fail">0</td>
@@ -1638,6 +1776,7 @@
       search: { total: 4, pass: 4, fail: 0, block: 0 },
       purchase: { total: 5, pass: 5, fail: 0, block: 0 },
       profile: { total: 6, pass: 6, fail: 0, block: 0 },
+      realitos: { total: 6, pass: 6, fail: 0, block: 0 },
     };
 
     /* ----------------------------------------------------------
